@@ -1,16 +1,14 @@
 <?php
 // config.php
 // Database Configuration
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'whatsapp_message_system');
+define('DB_HOST', 'acela.proxy.rlwy.net');
+define('DB_NAME', 'railway');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'AjXLUFbntfxsFqDUrsyahXaLqXcBQJkH');
+define('DB_PORT', '33049');
 
 // Workflow Webhook Configuration
-// The URL provided by your workflow tool (Make, n8n, Zapier, etc.) to receive outgoing messages
-define('WORKFLOW_WEBHOOK_URL', 'https://your-workflow-url.com/webhook');
+define('WORKFLOW_WEBHOOK_URL', 'https://services.leadconnectorhq.com/hooks/4PU6SQmWMZDQmB4PgBIW/webhook-trigger/06a7dc36-2aff-43a9-89fe-61d28cf45493');
 
 // Security Configuration
-// A secret token used to verify incoming requests to your webhook.php
-// Choose a strong random string. Ensure your workflow tool uses this same token when calling webhook.php.
-define('WEBHOOK_SECRET_TOKEN', 'YOUR_STRONG_SECRET_TOKEN_HERE');
+define('WEBHOOK_SECRET_TOKEN', 'Fixxable2024SecureToken');
