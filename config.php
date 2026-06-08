@@ -1,6 +1,5 @@
 <?php
 // config.php
-
 // Database Configuration
 define('DB_HOST', 'mysql.railway.internal');
 define('DB_NAME', 'railway');
