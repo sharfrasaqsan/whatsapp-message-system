@@ -86,56 +86,31 @@ if (empty($phone_number) || empty($reply_message)) {
 }
 
 try {
-    $message_id_to_update = null;
-
-    // If local_message_id exists, try that first
-    if (!empty($local_message_id)) {
-        $stmt = $pdo->prepare("SELECT id FROM whatsapp_messages WHERE id = ? LIMIT 1");
-        $stmt->execute([$local_message_id]);
-        $row = $stmt->fetch();
-
-        if ($row) {
-            $message_id_to_update = $row['id'];
+    // Find if this contact already exists in the database under a slightly different format (e.g., with/without '+')
+    $target_phone = $phone_number;
+    $stmt_phone = $pdo->query("SELECT DISTINCT phone_number FROM whatsapp_messages");
+    $all_phones = $stmt_phone->fetchAll(PDO::FETCH_COLUMN);
+    foreach ($all_phones as $existing_phone) {
+        if (normalize_phone($existing_phone) === $normalized_incoming_phone) {
+            $target_phone = $existing_phone;
+            break;
         }
     }
 
-    // If no local_message_id, find latest message by matching phone number safely
-    if (empty($message_id_to_update)) {
-        $stmt = $pdo->query("SELECT id, phone_number FROM whatsapp_messages ORDER BY id DESC LIMIT 100");
-        $messages = $stmt->fetchAll();
-
-        foreach ($messages as $msg) {
-            if (normalize_phone($msg['phone_number']) === $normalized_incoming_phone) {
-                $message_id_to_update = $msg['id'];
-                break;
-            }
-        }
-    }
-
-    // If no matching message found
-    if (empty($message_id_to_update)) {
-        http_response_code(404);
-        echo json_encode([
-            'success' => false,
-            'message' => 'No matching message found for this phone number',
-            'received_phone_number' => $phone_number,
-            'normalized_phone' => $normalized_incoming_phone
-        ]);
-        exit;
-    }
-
-    // Update the message
+    // Insert every incoming WhatsApp reply as a NEW chat row using matching phone format
     $stmt = $pdo->prepare("
-        UPDATE whatsapp_messages 
-        SET reply_message = ?, reply_received_at = ?, status = 'replied' 
-        WHERE id = ?
+        INSERT INTO whatsapp_messages 
+        (phone_number, sent_message, reply_message, status, reply_received_at)
+        VALUES (?, NULL, ?, 'replied', ?)
     ");
-    $stmt->execute([$reply_message, $received_at, $message_id_to_update]);
+    $stmt->execute([$target_phone, $reply_message, $received_at]);
+
+    $new_reply_id = $pdo->lastInsertId();
 
     echo json_encode([
         'success' => true,
         'message' => 'Reply saved successfully',
-        'updated_message_id' => $message_id_to_update,
+        'new_reply_id' => $new_reply_id,
         'phone_number' => $phone_number,
         'reply_message' => $reply_message
     ]);
