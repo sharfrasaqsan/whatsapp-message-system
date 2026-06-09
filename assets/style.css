@@ -248,6 +248,8 @@ body {
 .status-dot-sent { background-color: var(--status-sent); }
 .status-dot-failed { background-color: var(--status-failed); }
 .status-dot-replied { background-color: var(--status-replied); }
+.status-dot-delivered { background-color: var(--status-sent); }
+.status-dot-undelivered { background-color: var(--status-failed); }
 
 /* Right Chat Panel */
 .chat-panel {
@@ -456,6 +458,8 @@ body {
 .status-tick-replied { color: var(--status-replied); }
 .status-tick-failed { color: var(--status-failed); }
 .status-tick-pending { color: var(--status-pending); }
+.status-tick-delivered { color: var(--status-sent); }
+.status-tick-undelivered { color: var(--status-failed); }
 
 /* Composer */
 .composer {

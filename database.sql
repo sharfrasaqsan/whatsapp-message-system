@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `whatsapp_messages` (
     `phone_number` VARCHAR(30) NOT NULL,
     `sent_message` TEXT NULL,
     `reply_message` TEXT NULL,
-    `status` ENUM('pending','sent','failed','replied') DEFAULT 'pending',
+    `status` ENUM('pending','sent','failed','replied','delivered','undelivered') DEFAULT 'pending',
     `workflow_response` TEXT NULL,
     `sent_at` DATETIME NULL DEFAULT NULL,
     `reply_received_at` DATETIME NULL,

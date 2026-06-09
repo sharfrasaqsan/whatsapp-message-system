@@ -8,7 +8,7 @@ define('DB_PASS', 'gSPeixzelMWXeyEGYDTTOUWUAUqPXMLn');
 define('DB_PORT', '27975');
 
 // Workflow Webhook Configuration
-define('WORKFLOW_WEBHOOK_URL', 'https://services.leadconnectorhq.com/hooks/4PU6SQmWMZDQmB4PgBIW/webhook-trigger/06a7dc36-2aff-43a9-89fe-61d28cf45493');
+define('WORKFLOW_WEBHOOK_URL', 'https://services.leadconnectorhq.com/hooks/4PU6SQmWMZDQmB4PgBIW/webhook-trigger/38ea7ece-187b-4d3a-b9e0-4a85e149888e');
 
 // Security Configuration
 define('WEBHOOK_SECRET_TOKEN', 'Fixxable2024SecureToken');
