@@ -117,7 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (tickSpan) {
                         tickSpan.className = `status-tick status-tick-${data.status}`;
                         tickSpan.title = data.status;
-                        tickSpan.innerHTML = data.status === 'failed' ? '⚠️' : '✓✓';
+                        if (data.status === 'failed') tickSpan.innerHTML = '⚠️';
+                        else if (data.status === 'undelivered') tickSpan.innerHTML = '⚠️ <span class="undelivered-text">Not delivered</span>';
+                        else tickSpan.innerHTML = '✓✓';
                     }
                     
                     // If this was a new chat starting, redirect to its proper URL
@@ -207,7 +209,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (msg.sent_message) {
                 let tick = '✓';
                 if (msg.status === 'failed') tick = '⚠️';
-                else if (msg.status === 'sent' || msg.status === 'replied') tick = '✓✓';
+                else if (msg.status === 'undelivered') tick = '⚠️ <span class="undelivered-text">Not delivered</span>';
+                else if (msg.status === 'sent' || msg.status === 'replied' || msg.status === 'delivered') tick = '✓✓';
                 
                 const sentTime = msg.created_at ? msg.created_at.split(' ')[1].substring(0, 5) : '';
                 

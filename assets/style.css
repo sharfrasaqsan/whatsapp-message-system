@@ -454,12 +454,13 @@ body {
     display: inline-block;
 }
 
-.status-tick-sent { color: var(--status-sent); }
+.status-tick-sent { color: var(--status-pending); }
 .status-tick-replied { color: var(--status-replied); }
 .status-tick-failed { color: var(--status-failed); }
 .status-tick-pending { color: var(--status-pending); }
-.status-tick-delivered { color: var(--status-sent); }
+.status-tick-delivered { color: var(--primary-light); } /* Blue ✓✓ */
 .status-tick-undelivered { color: var(--status-failed); }
+.undelivered-text { font-weight: normal; font-size: 10px; margin-left: 4px; }
 
 /* Composer */
 .composer {

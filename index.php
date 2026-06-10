@@ -324,9 +324,9 @@ if (!empty($selected_phone) && $selected_phone !== 'new') {
                                             ?>
                                         </span>
                                         <span class="status-tick status-tick-<?php echo h($msg['status']); ?>" title="<?php echo h($msg['status']); ?>">
-                                            <?php if ($msg['status'] === 'failed'): ?>
-                                                ⚠️
-                                            <?php elseif ($msg['status'] === 'sent' || $msg['status'] === 'replied'): ?>
+                                            <?php if ($msg['status'] === 'failed' || $msg['status'] === 'undelivered'): ?>
+                                                ⚠️ <?php if ($msg['status'] === 'undelivered') echo '<span class="undelivered-text">Not delivered</span>'; ?>
+                                            <?php elseif ($msg['status'] === 'sent' || $msg['status'] === 'replied' || $msg['status'] === 'delivered'): ?>
                                                 ✓✓
                                             <?php else: ?>
                                                 ✓
