@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (msg.status === 'failed') tick = '⚠️';
                 else if (msg.status === 'sent' || msg.status === 'replied') tick = '✓✓';
                 
-                const sentTime = msg.sent_at ? msg.sent_at.split(' ')[1].substring(0, 5) : '';
+                const sentTime = msg.created_at ? msg.created_at.split(' ')[1].substring(0, 5) : '';
                 
                 html += `
                     <div class="message-row outgoing">
@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // If we are actively editing a new chat target, don't poll active chat to overwrite it
         if (selectedPhone === 'new') return;
 
-        let pollUrl = 'index.php?action=poll';
+        let pollUrl = 'index.php?action=poll&t=' + new Date().getTime();
         if (selectedPhone) {
             pollUrl += '&phone=' + encodeURIComponent(selectedPhone);
         }

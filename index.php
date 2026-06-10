@@ -41,7 +41,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'poll') {
     
     // Format timestamps
     foreach ($contacts as &$contact) {
-        $last_time = !empty($contact['reply_message']) ? $contact['reply_received_at'] : $contact['sent_at'];
+        $last_time = !empty($contact['reply_message']) ? $contact['reply_received_at'] : $contact['created_at'];
         $time_formatted = '';
         if (!empty($last_time)) {
             $dt = new DateTime($last_time);
@@ -234,7 +234,7 @@ if (!empty($selected_phone) && $selected_phone !== 'new') {
                             $last_time = $contact['reply_received_at'];
                         } else {
                             $last_preview = $contact['sent_message'];
-                            $last_time = $contact['sent_at'];
+                            $last_time = $contact['created_at'];
                         }
                         
                         // Format last activity time
@@ -318,8 +318,8 @@ if (!empty($selected_phone) && $selected_phone !== 'new') {
                                     <div class="message-footer">
                                         <span class="message-time">
                                             <?php 
-                                                if (!empty($msg['sent_at'])) {
-                                                    echo h((new DateTime($msg['sent_at']))->format('H:i'));
+                                                if (!empty($msg['created_at'])) {
+                                                    echo h((new DateTime($msg['created_at']))->format('H:i'));
                                                 }
                                             ?>
                                         </span>
@@ -384,6 +384,6 @@ if (!empty($selected_phone) && $selected_phone !== 'new') {
     </main>
 </div>
 
-<script src="assets/script.js?v=1.0.2"></script>
+<script src="assets/script.js?v=1.0.3"></script>
 </body>
 </html>
